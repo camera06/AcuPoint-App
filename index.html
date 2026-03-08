@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AcuPoint - Professional Sujok AI</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              bg: {
+                primary: 'var(--bg-primary)',
+                secondary: 'var(--bg-secondary)',
+                surface: 'var(--bg-surface)',
+              },
+              accent: {
+                primary: 'var(--accent-primary)',
+                secondary: 'var(--accent-secondary)',
+                warm: 'var(--accent-warm)',
+              },
+              text: {
+                primary: 'var(--text-primary)',
+                secondary: 'var(--text-secondary)',
+              },
+              border: {
+                subtle: 'var(--border-subtle)',
+              }
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.3s ease-out forwards',
+              'slide-up': 'slideUp 0.3s ease-out forwards',
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'message-in': 'messageIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+              'gradient-pulse': 'pulse-gradient 3s ease infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              messageIn: {
+                'from': { opacity: '0', transform: 'translateY(16px)' },
+                'to': { opacity: '1', transform: 'translateY(0)' },
+              },
+              'pulse-gradient': {
+                '0%, 100%': { 'background-position': '0% 50%' },
+                '50%': { 'background-position': '100% 50%' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      :root {
+        /* Light - Warmer tones like Claude */
+        --bg-primary: #FAF9F5;
+        --bg-secondary: #F4F3EE;
+        --bg-surface: #FFFFFF;
+        --accent-primary: #0284C7;
+        --accent-secondary: #0D9488;
+        --accent-warm: #C15F3C;
+        --text-primary: #2C2C2C;
+        --text-secondary: #78716C;
+        --border-subtle: rgba(0, 0, 0, 0.08);
+      }
+
+      .dark {
+        /* Dark Mode - Warmer deep tones */
+        --bg-primary: #121110;
+        --bg-secondary: #1A1918;
+        --bg-surface: #1E1C1A;
+        --accent-primary: #0EA5E9;
+        --accent-secondary: #14B8A6;
+        --accent-warm: #F59E0B;
+        --text-primary: #EBEBEB;
+        --text-secondary: #9B9B9B;
+        --border-subtle: rgba(255, 255, 255, 0.08);
+      }
+
+      html {
+        font-size: 14px; /* Set base size for rem units */
+      }
+
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
+        font-size: 14px; /* Default font size slightly smaller */
+      }
+
+      /* Global Transitions for smooth theme switching */
+      svg {
+        transition: fill 0.3s ease, stroke 0.3s ease, color 0.3s ease;
+      }
+
+      /* Typography Helpers */
+      .text-display { font-weight: 300; }
+      .text-body { font-weight: 400; }
+      .text-emphasis { font-weight: 500; }
+      .text-heading { font-weight: 600; }
+      .text-strong { font-weight: 700; }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border-subtle);
+        border-radius: 99px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--text-secondary);
+      }
+
+      /* Glassmorphism Utilities */
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+      .dark .glass {
+        background: rgba(26, 25, 24, 0.8);
+      }
+
+      .glass-strong {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(12px);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+      .dark .glass-strong {
+        background: rgba(26, 25, 24, 0.95);
+      }
+
+      /* Medical Styling for Markdown */
+      .prose-medical .section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: var(--accent-primary);
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+      }
+      
+      .prose-medical .numbered-step {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        align-items: flex-start;
+      }
+      
+      .prose-medical .step-number {
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        color: white;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: bold;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+
+      .prose-medical .warning-box {
+        background: rgba(193, 95, 60, 0.1);
+        border-left: 3px solid var(--accent-warm);
+        padding: 0.75rem;
+        border-radius: 0.4rem;
+        margin: 0.75rem 0;
+        font-size: 0.85rem;
+      }
+
+      .prose-medical a {
+        color: var(--accent-primary);
+        text-decoration: underline;
+        font-weight: 500;
+        transition: opacity 0.2s;
+      }
+      
+      .prose-medical a:hover {
+        opacity: 0.8;
+      }
+
+      .gradient-animate {
+        background-size: 200% 200%;
+        animation: pulse-gradient 3s ease infinite;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
